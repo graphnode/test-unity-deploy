@@ -24,7 +24,7 @@ jobs:
       # Cache
       - uses: actions/cache@v1.1.0
         with:
-          path: ./Library
+          path: ${{ env.GITHUB_WORKSPACE }}/Library
           key: Library
 
       # Test
@@ -33,7 +33,7 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.4
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
-          artifactsPath: ./Temp/tests-artifacts
+          artifactsPath: ${{ env.GITHUB_WORKSPACE }}/Temp/tests-artifacts
 
       # Upload Test Artifacts
       - uses: actions/upload-artifact@v1
@@ -44,7 +44,7 @@ jobs:
       # Build
       - uses: webbertakken/unity-builder@v1.0
         with:
-          buildsPath: ./Build
+          buildsPath: ${{ env.GITHUB_WORKSPACE }}/Build
           buildName: test-unity-deploy-x86
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: StandaloneWindows
@@ -53,4 +53,4 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: Build
-          path: ./Build/test-unity-deploy-x86
+          path: ${{ env.GITHUB_WORKSPACE }}/Build/test-unity-deploy-x86
