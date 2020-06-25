@@ -47,7 +47,7 @@ jobs:
       # Delete Test Artifacts?
       - uses: jcblw/bash@1.0.0
         with:
-          args: rm -rf ${{ steps.tests.outputs.artifactsPath }}
+          args: 'rm -rf ${{ steps.tests.outputs.artifactsPath }}'
 
       # Build
       - uses: webbertakken/unity-builder@v1.0
