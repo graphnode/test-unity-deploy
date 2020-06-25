@@ -6,19 +6,14 @@ on:
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  UNITY_VERSION: 2019.4.1f1
 
 jobs:
-  testAllModes:
-    name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
+  testAndBuild:
+    name: Tests on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        unityVersion:
-          - 2019.4.1f1
-        testMode:
-          - playmode
-          - editmode
     steps:
       # Checkout
       - name: Checkout repository
@@ -37,12 +32,25 @@ jobs:
         id: tests
         uses: webbertakken/unity-test-runner@v1.4
         with:
-          unityVersion: ${{ matrix.unityVersion }}
-          testMode: ${{ matrix.testMode }}
-          artifactsPath: ${{ matrix.testMode }}-artifacts
+          unityVersion: ${{ env.UNITY_VERSION }}
+          testMode: all
+          artifactsPath: tests-artifacts
 
       # Upload Test Artifacts
       - uses: actions/upload-artifact@v1
         with:
-          name: Test results for ${{ matrix.testMode }}
+          name: Test results
           path: ${{ steps.tests.outputs.artifactsPath }}
+
+      # Build
+      - uses: webbertakken/unity-builder@v1.0
+        with:
+          versioning: Semantic
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: StandaloneWindows
+
+      # Upload Build Artifacts
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Build
+          path: build
