@@ -27,7 +27,7 @@ jobs:
       # Cache
       - uses: actions/cache@v1.1.0
         with:
-          path: ${{ env.REPO_PATH }}/Library
+          path: ./Library
           key: Library
 
       # Test
@@ -36,7 +36,7 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.6
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
-          artifactsPath: ${{ env.REPO_PATH }}/Temp/tests-artifacts
+          artifactsPath: ./Temp/tests-artifacts
 
       # Upload Test Artifacts
       - uses: actions/upload-artifact@v1
