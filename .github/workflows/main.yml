@@ -7,13 +7,16 @@ on:
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
   UNITY_VERSION: 2019.4.1f1
+  REPO_PATH: /home/runner/work/test-unity-deploy/test-unity-deploy
 
 jobs:
   testAndBuild:
     name: Test and Build
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
+      
     steps:
       # Checkout
       - name: Checkout repository
@@ -24,7 +27,7 @@ jobs:
       # Cache
       - uses: actions/cache@v1.1.0
         with:
-          path: ${{ env.GITHUB_WORKSPACE }}/Library
+          path: ${{ env.REPO_PATH }}/Library
           key: Library
 
       # Test
@@ -33,7 +36,7 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.4
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
-          artifactsPath: ${{ env.GITHUB_WORKSPACE }}/Temp/tests-artifacts
+          artifactsPath: ${{ env.REPO_PATH }}/Temp/tests-artifacts
 
       # Upload Test Artifacts
       - uses: actions/upload-artifact@v1
@@ -44,7 +47,7 @@ jobs:
       # Build
       - uses: webbertakken/unity-builder@v1.0
         with:
-          buildsPath: ${{ env.GITHUB_WORKSPACE }}/Build
+          buildsPath: ${{ env.REPO_PATH }}/Build
           buildName: test-unity-deploy-x86
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: StandaloneWindows
@@ -53,4 +56,4 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: Build
-          path: ${{ env.GITHUB_WORKSPACE }}/Build/test-unity-deploy-x86
+          path: ${{ env.REPO_PATH }}/Build/test-unity-deploy-x86
