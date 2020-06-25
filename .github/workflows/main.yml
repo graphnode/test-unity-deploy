@@ -36,7 +36,7 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.6
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
-          artifactsPath: ./Temp/tests-artifacts
+          artifactsPath: Temp/tests-artifacts
 
       # Upload Test Artifacts
       - uses: actions/upload-artifact@v1
