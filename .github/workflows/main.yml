@@ -33,7 +33,7 @@ jobs:
       # Test
       - name: Run tests
         id: tests
-        uses: webbertakken/unity-test-runner@v1.6
+        uses: graphnode/unity-test-runner@master
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
           artifactsPath: Temp
