@@ -10,7 +10,7 @@ env:
 
 jobs:
   testAndBuild:
-    name: Tests on version ${{ matrix.unityVersion }}
+    name: Test and Build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -28,18 +28,18 @@ jobs:
           key: Library
 
       # Test
-      - name: Run tests
-        id: tests
-        uses: webbertakken/unity-test-runner@v1.4
-        with:
-          unityVersion: ${{ env.UNITY_VERSION }}
-          artifactsPath: tests-artifacts
+      #- name: Run tests
+      #  id: tests
+      #  uses: webbertakken/unity-test-runner@v1.4
+      #  with:
+      #    unityVersion: ${{ env.UNITY_VERSION }}
+      #    artifactsPath: tests-artifacts
 
       # Upload Test Artifacts
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Test results
-          path: ${{ steps.tests.outputs.artifactsPath }}
+      #- uses: actions/upload-artifact@v1
+      #  with:
+      #    name: Test results
+      #    path: ${{ steps.tests.outputs.artifactsPath }}
 
       # Build
       - uses: webbertakken/unity-builder@v1.0
