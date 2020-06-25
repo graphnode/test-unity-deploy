@@ -33,7 +33,6 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.4
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
-          testMode: all
           artifactsPath: tests-artifacts
 
       # Upload Test Artifacts
@@ -45,7 +44,6 @@ jobs:
       # Build
       - uses: webbertakken/unity-builder@v1.0
         with:
-          versioning: Semantic
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: StandaloneWindows
 
