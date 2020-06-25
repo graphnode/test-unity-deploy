@@ -56,4 +56,4 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: Build
-          path: ${{ env.REPO_PATH }}/Build/test-unity-deploy-x86
+          path: ${{ env.REPO_PATH }}/Build/StandaloneWindows
