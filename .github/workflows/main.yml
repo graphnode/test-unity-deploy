@@ -33,10 +33,10 @@ jobs:
       # Test
       - name: Run tests
         id: tests
-        uses: graphnode/unity-test-runner@master
+        uses: webbertakken/unity-test-runner@v1.6
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
-          artifactsPath: Temp
+          artifactsPath: tests-artifacts
 
       # Upload Test Artifacts
       - uses: actions/upload-artifact@v1
